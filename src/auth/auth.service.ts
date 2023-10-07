@@ -34,6 +34,7 @@ export class AuthService {
           email: dto.email,
           hash,
           userName: dto.userName,
+          phoneNumber: dto.phoneNumber,
         },
       });
       return this.signToken(user.id, user.email);
@@ -48,7 +49,7 @@ export class AuthService {
   }
 
   async signToken(
-    userId: number,
+    userId: string,
     email: string,
   ): Promise<{ access_token: string }> {
     const payload = {

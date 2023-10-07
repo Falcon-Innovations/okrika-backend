@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id Int @id @default(autoincrement())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   email String @unique
@@ -25,14 +25,14 @@ model User {
 
 
 model Article {
-  id Int @id @default(autoincrement())
+  id String @id @default(auto()) @map("_id") @db.ObjectId
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   title String
   description String
   price Int
   author User? @relation(fields: [authorId], references: [id])
-  authorId Int?
+  authorId String? @db.ObjectId
   category Category
   @@map("bookmarks")
 
